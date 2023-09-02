@@ -5,6 +5,9 @@ const maxRecords = 151
 const limit = 10
 let offset = 0;
 
+//Execute on html load
+loadPokemonItens(offset, limit)
+
 function convertPokemonToLi(pokemon) {
     return `
         <li class="pokemon ${pokemon.type}">
@@ -19,6 +22,7 @@ function convertPokemonToLi(pokemon) {
                 <img src="${pokemon.photo}"
                      alt="${pokemon.name}">
             </div>
+            <button class="detail-button ${pokemon.type}" type="button" onclick="handleClick(${pokemon.number})">Detail</button>
         </li>
     `
 }
@@ -30,7 +34,13 @@ function loadPokemonItens(offset, limit) {
     })
 }
 
-loadPokemonItens(offset, limit)
+function handleClick(pokemonNumber){
+    localStorage.setItem("pokemonNumber", pokemonNumber)
+    
+    // Redirect to Detail
+    location.href="detail.html"
+}
+
 
 loadMoreButton.addEventListener('click', () => {
     offset += limit
